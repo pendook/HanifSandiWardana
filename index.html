@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Curriculum Vitae - Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#0f172a',
+                        secondary: '#1e293b',
+                        accent: '#3b82f6',
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+        }
+        .card-gradient {
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+        }
+        .text-gradient {
+            background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 50%, #2563eb 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Advanced Animations */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { 
+                box-shadow: 0 0 20px rgba(59, 130, 246, 0.4), 0 0 40px rgba(59, 130, 246, 0.2);
+            }
+            50% { 
+                box-shadow: 0 0 30px rgba(59, 130, 246, 0.6), 0 0 60px rgba(59, 130, 246, 0.4);
+            }
+        }
+
+        @keyframes slideInFromLeft {
+            0% {
+                transform: translateX(-100%);
+                opacity: 0;
+            }
+            100% {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideInFromRight {
+            0% {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            100% {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideInFromBottom {
+            0% {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeInScale {
+            0% {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes rotateGlow {
+            0% {
+                transform: rotate(0deg);
+                filter: hue-rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+                filter: hue-rotate(360deg);
+            }
+        }
+
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+        @keyframes blink {
+            0%, 50% { border-color: transparent; }
+            51%, 100% { border-color: #3b82f6; }
+        }
+
+        /* Profile Photo Animations */
+        .profile-photo {
+            animation: float 6s ease-in-out infinite, pulse-glow 3s ease-in-out infinite;
+            transition: all 0.5s ease;
+        }
+
+        .profile-photo:hover {
+            transform: scale(1.1) rotate(5deg);
+            animation-play-state: paused;
+        }
+
+        /* Text Animations */
+        .animate-slide-left {
+            animation: slideInFromLeft 1s ease-out;
+        }
+
+        .animate-slide-right {
+            animation: slideInFromRight 1s ease-out;
+        }
+
+        .animate-slide-bottom {
+            animation: slideInFromBottom 1s ease-out;
+        }
+
+        .animate-fade-scale {
+            animation: fadeInScale 1s ease-out;
+        }
+
+        /* Typing Animation */
+        .typing-text {
+            display: inline-block;
+            overflow: hidden;
+            white-space: nowrap;
+            border-right: 3px solid #3b82f6;
+            animation: typing 4s steps(25, end) 1s both, blink 1s infinite 5s;
+            max-width: fit-content;
+        }
+
+        @media (max-width: 768px) {
+            .typing-text {
+                animation: typing 3s steps(20, end) 1s both, blink 1s infinite 4s;
+                white-space: normal;
+                word-break: break-word;
+            }
+        }
+
+        /* Card Hover Effects */
+        .card-hover {
+            transition: all 0.4s ease;
+        }
+
+        .card-hover:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Skill Bar Animation */
+        @keyframes skill-fill {
+            0% { width: 0%; }
+            100% { width: var(--skill-width); }
+        }
+
+        .skill-bar {
+            animation: skill-fill 2s ease-in-out;
+        }
+
+        /* Background Particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(59, 130, 246, 0.1);
+            border-radius: 50%;
+            animation: float 8s infinite ease-in-out;
+        }
+
+        .particle:nth-child(1) { width: 4px; height: 4px; left: 10%; animation-delay: 0s; }
+        .particle:nth-child(2) { width: 6px; height: 6px; left: 20%; animation-delay: 1s; }
+        .particle:nth-child(3) { width: 3px; height: 3px; left: 30%; animation-delay: 2s; }
+        .particle:nth-child(4) { width: 5px; height: 5px; left: 40%; animation-delay: 3s; }
+        .particle:nth-child(5) { width: 4px; height: 4px; left: 50%; animation-delay: 4s; }
+        .particle:nth-child(6) { width: 7px; height: 7px; left: 60%; animation-delay: 5s; }
+        .particle:nth-child(7) { width: 3px; height: 3px; left: 70%; animation-delay: 6s; }
+        .particle:nth-child(8) { width: 5px; height: 5px; left: 80%; animation-delay: 7s; }
+        .particle:nth-child(9) { width: 4px; height: 4px; left: 90%; animation-delay: 8s; }
+
+        /* Button Glow Effect */
+        .btn-glow {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-glow::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn-glow:hover::before {
+            left: 100%;
+        }
+
+        /* Intersection Observer Classes */
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .fade-in-section.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Ripple Effect */
+        .ripple {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            pointer-events: none;
+            transform: scale(0);
+            animation: ripple-animation 0.6s linear;
+        }
+
+        @keyframes ripple-animation {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+
+        /* Enhanced 3D Effects */
+        .card-hover {
+            perspective: 1000px;
+            transform-style: preserve-3d;
+        }
+
+        /* Dynamic Gradient Variables */
+        :root {
+            --dynamic-hue: 0;
+        }
+
+        .dynamic-gradient {
+            background: linear-gradient(135deg, 
+                hsl(var(--dynamic-hue), 70%, 60%), 
+                hsl(calc(var(--dynamic-hue) + 60), 70%, 50%));
+        }
+
+        /* Enhanced Glow Effects */
+        .enhanced-glow {
+            box-shadow: 
+                0 0 20px rgba(59, 130, 246, 0.3),
+                0 0 40px rgba(59, 130, 246, 0.2),
+                0 0 80px rgba(59, 130, 246, 0.1);
+        }
+
+        /* Skill Bar Enhanced Animation */
+        .skill-item:hover .skill-bar {
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.5);
+            transform: scaleY(1.2);
+        }
+
+        /* Particle Trail Effect */
+        .particle-trail {
+            position: fixed;
+            width: 6px;
+            height: 6px;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.8), transparent);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9998;
+            animation: particle-fade 1s ease-out forwards;
+        }
+
+        @keyframes particle-fade {
+            0% { opacity: 1; transform: scale(1); }
+            100% { opacity: 0; transform: scale(0); }
+        }
+    </style>
+</head>
+<body class="gradient-bg text-white min-h-screen">
+    <!-- Background Particles -->
+    <div class="particles">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 bg-slate-900/90 backdrop-blur-sm border-b border-slate-700">
+        <div class="container mx-auto px-6 py-3">
+            <div class="flex justify-between items-center">
+                <div class="text-xl font-bold text-gradient">
+                    Portfolio CV
+                </div>
+                <div class="hidden md:flex space-x-6">
+                    <a href="#profil" class="hover:text-blue-400 transition-colors">Profil</a>
+                    <a href="#pendidikan" class="hover:text-blue-400 transition-colors">Pendidikan</a>
+                    <a href="#pengalaman" class="hover:text-blue-400 transition-colors">Pengalaman</a>
+                    <a href="#kontak" class="hover:text-blue-400 transition-colors">Kontak</a>
+                </div>
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn" class="text-white">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+            <!-- Mobile Menu -->
+            <div id="mobile-menu" class="hidden md:hidden mt-4 pb-4">
+                <a href="#profil" class="block py-2 hover:text-blue-400 transition-colors">Profil</a>
+                <a href="#pendidikan" class="block py-2 hover:text-blue-400 transition-colors">Pendidikan</a>
+                <a href="#pengalaman" class="block py-2 hover:text-blue-400 transition-colors">Pengalaman</a>
+                <a href="#kontak" class="block py-2 hover:text-blue-400 transition-colors">Kontak</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="pt-20 pb-12 px-6">
+        <div class="container mx-auto text-center">
+            <div class="max-w-4xl mx-auto">
+                <div class="mb-8 animate-fade-scale">
+                    <div class="relative inline-block">
+                        <img src="profile.png" alt="Profile Picture" 
+                             class="profile-photo w-48 h-48 md:w-56 md:h-56 rounded-full mx-auto mb-6 border-8 border-blue-500 shadow-2xl">
+                        <!-- Rotating ring around photo -->
+                        <div class="absolute inset-0 rounded-full border-4 border-transparent border-t-purple-400 border-r-blue-400 animate-spin" style="animation-duration: 8s;"></div>
+                    </div>
+                </div>
+                <h1 class="text-4xl md:text-6xl font-bold mb-4 text-gradient animate-slide-bottom typing-text">
+                    Hanif Sandi Wardana
+                </h1>
+                <p class="text-xl md:text-2xl text-slate-300 mb-6 animate-slide-left" style="animation-delay: 0.5s;">
+                    Junior Developer & Operator Produksi
+                </p>
+             
+                <div class="mt-8 animate-fade-scale" style="animation-delay: 1.5s;">
+                    <a href="#kontak" class="btn-glow bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 
+                              px-8 py-3 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg inline-block">
+                        <i class="fas fa-rocket mr-2"></i>Hubungi Saya
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Profil Section -->
+    <section id="profil" class="py-16 px-6 fade-in-section">
+        <div class="container mx-auto">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-gradient animate-slide-bottom">
+                <i class="fas fa-user-circle mr-3"></i>Tentang Saya
+            </h2>
+            <div class="max-w-4xl mx-auto">
+                <div class="card-gradient card-hover rounded-2xl p-8 shadow-2xl border border-slate-600 animate-fade-scale">
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div class="animate-slide-left">
+                            <h3 class="text-2xl font-bold mb-4 text-blue-400">
+                                <i class="fas fa-briefcase mr-2"></i>Profil Profesional
+                            </h3>
+                            <p class="text-slate-300 leading-relaxed mb-6">
+                                Seorang developer passionate dengan pengalaman dalam pengembangan aplikasi web dan mobile. 
+                                Memiliki keahlian dalam berbagai teknologi modern dan selalu eager to learn hal-hal baru 
+                                dalam dunia teknologi. Memiliki pengalaman kerja selama kurang lebih 3 tahun di bidang 
+                                operasional sebagai Operator Pabrik di PT Indonesia Polyurethane Industri. Terbiasa bekerja 
+                                dalam sistem shift, memahami alur produksi, serta memiliki kedisiplinan dan tanggung jawab 
+                                yang tinggi dalam menjalankan tugas.
+                            </p>
+                            <div class="space-y-3">
+                                <div class="flex items-center transform hover:translate-x-2 transition-transform duration-300">
+                                    <i class="fas fa-calendar-alt text-blue-400 w-6 mr-3"></i>
+                                    <span class="text-slate-300">Mahasiswa Aktif Semester Akhir</span>
+                                </div>
+                                <div class="flex items-center transform hover:translate-x-2 transition-transform duration-300">
+                                    <i class="fas fa-map-marker-alt text-blue-400 w-6 mr-3"></i>
+                                    <span class="text-slate-300">Lokasi: Tangerang, Indonesia</span>
+                                </div>
+                                <div class="flex items-center transform hover:translate-x-2 transition-transform duration-300">
+                                    <i class="fas fa-language text-blue-400 w-6 mr-3"></i>
+                                    <span class="text-slate-300">Bahasa: Indonesia, Inggris</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="animate-slide-right">
+                            <h3 class="text-2xl font-bold mb-4 text-blue-400">
+                                <i class="fas fa-cogs mr-2"></i>Keahlian
+                            </h3>
+                            <div class="space-y-4">
+                                <div class="skill-item">
+                                    <div class="flex justify-between mb-2">
+                                        <span class="text-slate-300"><i class="fab fa-html5 mr-2 text-orange-500"></i>HTML/CSS/JavaScript</span>
+                                        <span class="text-blue-400">85%</span>
+                                    </div>
+                                    <div class="bg-slate-700 rounded-full h-3 overflow-hidden">
+                                        <div class="skill-bar bg-gradient-to-r from-blue-500 to-purple-500 h-3 rounded-full" style="--skill-width: 85%; width: 0;"></div>
+                                    </div>
+                                </div>
+                                <div class="skill-item">
+                                    <div class="flex justify-between mb-2">
+                                        <span class="text-slate-300"><i class="fab fa-php mr-2 text-purple-500"></i>PHP & Python</span>
+                                        <span class="text-blue-400">80%</span>
+                                    </div>
+                                    <div class="bg-slate-700 rounded-full h-3 overflow-hidden">
+                                        <div class="skill-bar bg-gradient-to-r from-green-500 to-blue-500 h-3 rounded-full" style="--skill-width: 80%; width: 0; animation-delay: 0.2s;"></div>
+                                    </div>
+                                </div>
+                                <div class="skill-item">
+                                    <div class="flex justify-between mb-2">
+                                        <span class="text-slate-300"><i class="fas fa-industry mr-2 text-green-500"></i>Operasi Mesin & Quality Control</span>
+                                        <span class="text-blue-400">90%</span>
+                                    </div>
+                                    <div class="bg-slate-700 rounded-full h-3 overflow-hidden">
+                                        <div class="skill-bar bg-gradient-to-r from-green-500 to-emerald-500 h-3 rounded-full" style="--skill-width: 90%; width: 0; animation-delay: 0.4s;"></div>
+                                    </div>
+                                </div>
+                                <div class="skill-item">
+                                    <div class="flex justify-between mb-2">
+                                        <span class="text-slate-300"><i class="fas fa-file-word mr-2 text-blue-500"></i>MS Office</span>
+                                        <span class="text-blue-400">85%</span>
+                                    </div>
+                                    <div class="bg-slate-700 rounded-full h-3 overflow-hidden">
+                                        <div class="skill-bar bg-gradient-to-r from-purple-500 to-pink-500 h-3 rounded-full" style="--skill-width: 85%; width: 0; animation-delay: 0.6s;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pendidikan Section -->
+    <section id="pendidikan" class="py-16 px-6 bg-slate-900/50 fade-in-section">
+        <div class="container mx-auto">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-gradient animate-slide-bottom">
+                <i class="fas fa-graduation-cap mr-3"></i>Riwayat Pendidikan
+            </h2>
+            <div class="max-w-4xl mx-auto">
+                <div class="space-y-8">
+                    <!-- Pendidikan 1 -->
+                    <div class="card-gradient card-hover rounded-2xl p-6 shadow-2xl border border-slate-600 transform transition-all duration-500 animate-slide-left">
+                        <div class="flex items-start space-x-4">
+                            <div class="bg-blue-600 rounded-full p-3 flex-shrink-0 animate-pulse">
+                                <i class="fas fa-graduation-cap text-white text-xl"></i>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-xl font-bold text-blue-400 mb-2">Universitas Pamulang</h3>
+                                <h4 class="text-lg text-slate-300 mb-2">Teknik Informatika</h4>
+                                <div class="flex flex-wrap items-center gap-4 mb-3">
+                                    <span class="bg-slate-700 px-3 py-1 rounded-full text-sm text-slate-300">
+                                        <i class="fas fa-calendar mr-2"></i>2021 - 2025
+                                    </span>
+                                    <span class="bg-blue-600 px-3 py-1 rounded-full text-sm text-white">
+                                        GPA: 3.20
+                                    </span>
+                                    <span class="bg-green-600 px-3 py-1 rounded-full text-sm text-white">
+                                        Semester Akhir
+                                    </span>
+                                </div>
+                                <p class="text-slate-400">
+                                    Fokus pada pengembangan software, database management, dan pemrograman web. 
+                                    Aktif dalam berbagai proyek pengembangan aplikasi dan penelitian teknologi informasi.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pendidikan 2 -->
+                    <div class="card-gradient rounded-2xl p-6 shadow-2xl border border-slate-600 transform hover:scale-105 transition-all duration-300">
+                        <div class="flex items-start space-x-4">
+                            <div class="bg-purple-600 rounded-full p-3 flex-shrink-0">
+                                <i class="fas fa-school text-white"></i>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-xl font-bold text-purple-400 mb-2">SMK Global Insan</h3>
+                                <h4 class="text-lg text-slate-300 mb-2">Teknik Komputer & Jaringan</h4>
+                                <div class="flex flex-wrap items-center gap-4 mb-3">
+                                    <span class="bg-slate-700 px-3 py-1 rounded-full text-sm text-slate-300">
+                                        <i class="fas fa-calendar mr-2"></i>2018 - 2021
+                                    </span>
+                                    <span class="bg-purple-600 px-3 py-1 rounded-full text-sm text-white">
+                                        Nilai Rata-rata: 82
+                                    </span>
+                                </div>
+                                <p class="text-slate-400">
+                                    Fokus pada mata pelajaran eksak dengan prestasi akademik yang konsisten. 
+                                    Aktif dalam ekstrakurikuler robotika dan olimpiade matematika.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sertifikasi -->
+                    <div class="card-gradient rounded-2xl p-6 shadow-2xl border border-slate-600">
+                        <h3 class="text-xl font-bold text-green-400 mb-4">
+                            <i class="fas fa-certificate mr-2"></i>Sertifikasi & Pelatihan
+                        </h3>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div class="bg-slate-800 p-4 rounded-lg">
+                                <h4 class="font-semibold text-slate-300">[TOEFL PREDICTION TEST]</h4>
+                                <p class="text-sm text-slate-400">[Lembaga Bahasa UNPAM] - [2024-2026]</p>
+                            </div>
+                            <div class="bg-slate-800 p-4 rounded-lg">
+                                <h4 class="font-semibold text-slate-300">[NETWORK ADMINISTRATOR]</h4>
+                                <p class="text-sm text-slate-400">[BNSP & LSP UNPAM] - [2025-2027]</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pengalaman Section -->
+    <section id="pengalaman" class="py-16 px-6">
+        <div class="container mx-auto">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-gradient">
+                Pengalaman Kerja
+            </h2>
+            <div class="max-w-4xl mx-auto">
+                <div class="space-y-8">
+                    <!-- Pengalaman 1 -->
+                    <div class="card-gradient rounded-2xl p-6 shadow-2xl border border-slate-600 transform hover:scale-105 transition-all duration-300">
+                        <div class="flex items-start space-x-4">
+                            <div class="bg-green-600 rounded-full p-3 flex-shrink-0">
+                                <i class="fas fa-industry text-white"></i>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-xl font-bold text-green-400 mb-2">Operator Produksi</h3>
+                                <h4 class="text-lg text-slate-300 mb-2">PT Indonesia Polyurethane Industri</h4>
+                                <div class="flex flex-wrap items-center gap-4 mb-4">
+                                    <span class="bg-slate-700 px-3 py-1 rounded-full text-sm text-slate-300">
+                                        <i class="fas fa-calendar mr-2"></i>2021 - 2025
+                                    </span>
+                                    <span class="bg-green-600 px-3 py-1 rounded-full text-sm text-white">
+                                        Tangerang, Indonesia
+                                    </span>
+                                </div>
+                                <p class="text-slate-400 mb-4">
+                                    Bertanggung jawab dalam operasional produksi polyurethane dengan sistem kerja shift. 
+                                    Memastikan kualitas produk sesuai standar dan mengoptimalkan efisiensi produksi.
+                                </p>
+                                <div class="space-y-2">
+                                    <h5 class="font-semibold text-slate-300">Pencapaian Utama:</h5>
+                                    <ul class="list-disc list-inside text-slate-400 space-y-1">
+                                        <li>Mengoperasikan mesin casting untuk produksi awal dan memastikan kualitas hasil cetakan</li>
+                                        <li>Mengoperasikan mesin cutting untuk memproses produk setengah jadi menjadi ukuran final</li>
+                                        <li>Melakukan quality control pada tahap akhir produksi dan memastikan produk siap kirim</li>
+                                        <li>Melaksanakan maintenance rutin mesin untuk menjaga performa optimal</li>
+                                        <li>Bekerja dalam tim shift dengan koordinasi yang baik dan disiplin tinggi</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pengalaman 2 -->
+                    <div class="card-gradient rounded-2xl p-6 shadow-2xl border border-slate-600 transform hover:scale-105 transition-all duration-300">
+                        <div class="flex items-start space-x-4">
+                            <div class="bg-blue-600 rounded-full p-3 flex-shrink-0">
+                                <i class="fas fa-laptop-code text-white"></i>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-xl font-bold text-blue-400 mb-2">Junior Web Developer</h3>
+                                <h4 class="text-lg text-slate-300 mb-2">Freelance Projects</h4>
+                                <div class="flex flex-wrap items-center gap-4 mb-4">
+                                    <span class="bg-slate-700 px-3 py-1 rounded-full text-sm text-slate-300">
+                                        <i class="fas fa-calendar mr-2"></i>2022 - 2024
+                                    </span>
+                                    <span class="bg-blue-600 px-3 py-1 rounded-full text-sm text-white">
+                                        Remote/Jakarta
+                                    </span>
+                                </div>
+                                <p class="text-slate-400 mb-4">
+                                    Mengembangkan website dan aplikasi web untuk berbagai klien selama waktu luang. 
+                                    Fokus pada frontend development dengan teknologi modern dan responsive design.
+                                </p>
+                                <div class="space-y-2">
+                                    <h5 class="font-semibold text-slate-300">Pencapaian Utama:</h5>
+                                    <ul class="list-disc list-inside text-slate-400 space-y-1">
+                                        <li>Membuat website company profile untuk 5+ klien UMKM</li>
+                                        <li>Implementasi sistem booking dan e-commerce sederhana</li>
+                                        <li>Optimasi SEO dan performa website</li>
+                                        <li>Maintenance dan update website berkala</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pengalaman 3 -->
+                    <div class="card-gradient rounded-2xl p-6 shadow-2xl border border-slate-600 transform hover:scale-105 transition-all duration-300">
+                        <div class="flex items-start space-x-4">
+                            <div class="bg-yellow-600 rounded-full p-3 flex-shrink-0">
+                                <i class="fas fa-shipping-fast text-white"></i>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-xl font-bold text-yellow-400 mb-2">Admin Sales Counter</h3>
+                                <h4 class="text-lg text-slate-300 mb-2">JNE PRIMASENA</h4>
+                                <div class="flex flex-wrap items-center gap-4 mb-4">
+                                    <span class="bg-slate-700 px-3 py-1 rounded-full text-sm text-slate-300">
+                                        <i class="fas fa-calendar mr-2"></i>2021 - 2022
+                                    </span>
+                                    <span class="bg-yellow-600 px-3 py-1 rounded-full text-sm text-white">
+                                        Tangerang, Indonesia
+                                    </span>
+                                </div>
+                                <p class="text-slate-400 mb-4">
+                                    Menangani pelayanan pelanggan, pengelolaan administrasi pengiriman, serta penginputan data 
+                                    menggunakan sistem internal perusahaan dengan fokus pada pelayanan prima dan efisiensi operasional.
+                                </p>
+                                <div class="space-y-2">
+                                    <h5 class="font-semibold text-slate-300">Pencapaian Utama:</h5>
+                                    <ul class="list-disc list-inside text-slate-400 space-y-1">
+                                        <li>Melayani pelanggan di counter pengiriman dengan proses input data yang akurat</li>
+                                        <li>Mengelola administrasi pengiriman barang menggunakan sistem internal JNE</li>
+                                        <li>Menangani pertanyaan pelanggan terkait layanan dan status pengiriman</li>
+                                        <li>Bekerja sama dengan tim operasional untuk kelancaran proses pengiriman</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Proyek/Portfolio -->
+                    <div class="card-gradient rounded-2xl p-6 shadow-2xl border border-slate-600">
+                        <h3 class="text-xl font-bold text-purple-400 mb-4">
+                            <i class="fas fa-project-diagram mr-2"></i>Proyek & Keahlian Terbaru
+                        </h3>
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div class="bg-slate-800 p-4 rounded-lg hover:bg-slate-700 transition-colors">
+                                <h4 class="font-semibold text-slate-300 mb-2">Company Profile UMKM</h4>
+                                <p class="text-sm text-slate-400 mb-3">Website company profile responsive untuk klien UMKM dengan fitur lengkap</p>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="bg-blue-600 px-2 py-1 rounded text-xs">HTML/CSS</span>
+                                    <span class="bg-yellow-600 px-2 py-1 rounded text-xs">JavaScript</span>
+                                    <span class="bg-purple-600 px-2 py-1 rounded text-xs">Bootstrap</span>
+                                </div>
+                            </div>
+                            <div class="bg-slate-800 p-4 rounded-lg hover:bg-slate-700 transition-colors">
+                                <h4 class="font-semibold text-slate-300 mb-2">E-commerce & Booking System</h4>
+                                <p class="text-sm text-slate-400 mb-3">Sistem booking dan e-commerce sederhana dengan database management</p>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="bg-indigo-600 px-2 py-1 rounded text-xs">PHP</span>
+                                    <span class="bg-blue-600 px-2 py-1 rounded text-xs">WordPress</span>
+                                    <span class="bg-green-600 px-2 py-1 rounded text-xs">MySQL</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-6">
+                            <h4 class="font-semibold text-slate-300 mb-3">Keahlian Operasional:</h4>
+                            <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                                <div class="bg-slate-800 p-3 rounded-lg text-center">
+                                    <i class="fas fa-cogs text-green-400 text-lg mb-2"></i>
+                                    <p class="text-xs text-slate-300">Operasi Mesin</p>
+                                </div>
+                                <div class="bg-slate-800 p-3 rounded-lg text-center">
+                                    <i class="fas fa-clipboard-check text-blue-400 text-lg mb-2"></i>
+                                    <p class="text-xs text-slate-300">Quality Control</p>
+                                </div>
+                                <div class="bg-slate-800 p-3 rounded-lg text-center">
+                                    <i class="fas fa-hard-hat text-yellow-400 text-lg mb-2"></i>
+                                    <p class="text-xs text-slate-300">K3</p>
+                                </div>
+                                <div class="bg-slate-800 p-3 rounded-lg text-center">
+                                    <i class="fas fa-wrench text-purple-400 text-lg mb-2"></i>
+                                    <p class="text-xs text-slate-300">Troubleshooting</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Kontak Section -->
+    <section id="kontak" class="py-16 px-6 bg-slate-900/50">
+        <div class="container mx-auto">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-gradient">
+                Hubungi Saya
+            </h2>
+            <div class="max-w-4xl mx-auto">
+                <div class="grid md:grid-cols-2 gap-8">
+                    <!-- Informasi Kontak -->
+                    <div class="card-gradient rounded-2xl p-6 shadow-2xl border border-slate-600">
+                        <h3 class="text-2xl font-bold mb-6 text-blue-400">Informasi Kontak</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-center space-x-4">
+                                <div class="bg-blue-600 rounded-full p-3 w-12 h-12 flex items-center justify-center">
+                                    <i class="fas fa-envelope text-white"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-slate-300">Email</h4>
+                                    <p class="text-slate-400">hanifsandi32@gmail.com</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-4">
+                                <div class="bg-green-600 rounded-full p-3 w-12 h-12 flex items-center justify-center">
+                                    <i class="fas fa-phone text-white"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-slate-300">Telepon</h4>
+                                    <p class="text-slate-400">+62 878 7886 9445</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-4">
+                                <div class="bg-purple-600 rounded-full p-3 w-12 h-12 flex items-center justify-center">
+                                    <i class="fab fa-linkedin text-white"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-slate-300">LinkedIn</h4>
+                                    <p class="text-slate-400">linkedin.com/in/hanif-sandi-wardana</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-4">
+                                <div class="bg-gray-600 rounded-full p-3 w-12 h-12 flex items-center justify-center">
+                                    <i class="fab fa-github text-white"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-slate-300">GitHub</h4>
+                                    <p class="text-slate-400">github.com/hanifsandi</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-4">
+                                <div class="bg-red-600 rounded-full p-3 w-12 h-12 flex items-center justify-center">
+                                    <i class="fas fa-map-marker-alt text-white"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-slate-300">Lokasi</h4>
+                                    <p class="text-slate-400">Tangerang, Banten, Indonesia</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Form Kontak -->
+                    <div class="card-gradient rounded-2xl p-6 shadow-2xl border border-slate-600">
+                        <h3 class="text-2xl font-bold mb-6 text-blue-400">Kirim Pesan</h3>
+                        <form class="space-y-4">
+                            <div>
+                                <label class="block text-slate-300 mb-2">Nama Lengkap</label>
+                                <input type="text" class="w-full bg-slate-700 border border-slate-600 rounded-lg px-4 py-3 text-white 
+                                             focus:border-blue-400 focus:outline-none transition-colors" 
+                                       placeholder="Masukkan nama lengkap">
+                            </div>
+                            <div>
+                                <label class="block text-slate-300 mb-2">Email</label>
+                                <input type="email" class="w-full bg-slate-700 border border-slate-600 rounded-lg px-4 py-3 text-white 
+                                              focus:border-blue-400 focus:outline-none transition-colors" 
+                                       placeholder="Masukkan email">
+                            </div>
+                            <div>
+                                <label class="block text-slate-300 mb-2">Subject</label>
+                                <input type="text" class="w-full bg-slate-700 border border-slate-600 rounded-lg px-4 py-3 text-white 
+                                             focus:border-blue-400 focus:outline-none transition-colors" 
+                                       placeholder="Masukkan subject">
+                            </div>
+                            <div>
+                                <label class="block text-slate-300 mb-2">Pesan</label>
+                                <textarea rows="4" class="w-full bg-slate-700 border border-slate-600 rounded-lg px-4 py-3 text-white 
+                                                 focus:border-blue-400 focus:outline-none transition-colors" 
+                                          placeholder="Tulis pesan Anda..."></textarea>
+                            </div>
+                            <button type="submit" class="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 
+                                           px-6 py-3 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105">
+                                <i class="fas fa-paper-plane mr-2"></i>Kirim Pesan
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-8 px-6 border-t border-slate-700">
+        <div class="container mx-auto text-center">
+            <div class="mb-4">
+                <div class="flex justify-center space-x-6">
+                    <a href="#" class="text-slate-400 hover:text-blue-400 transition-colors">
+                        <i class="fab fa-linkedin text-2xl"></i>
+                    </a>
+                    <a href="#" class="text-slate-400 hover:text-blue-400 transition-colors">
+                        <i class="fab fa-github text-2xl"></i>
+                    </a>
+                    <a href="#" class="text-slate-400 hover:text-blue-400 transition-colors">
+                        <i class="fab fa-twitter text-2xl"></i>
+                    </a>
+                    <a href="https://www.instagram.com/wrdnhnf/" class="text-slate-400 hover:text-blue-400 transition-colors">
+                        <i class="fab fa-instagram text-2xl"></i>
+                    </a>
+                </div>
+            </div>
+            <p class="text-slate-400">
+                © 2025 Hanif Sandi Wardana. All rights reserved.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+                // Close mobile menu if open
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // Form submission
+        document.querySelector('form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Terima kasih! Pesan Anda telah dikirim. (Ini adalah demo, pesan tidak benar-benar terkirim)');
+        });
+
+        // Add scroll effect to navbar
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('nav');
+            if (window.scrollY > 100) {
+                navbar.classList.add('bg-slate-900/95');
+            } else {
+                navbar.classList.remove('bg-slate-900/95');
+            }
+        });
+
+        // Intersection Observer for fade-in animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    
+                    // Trigger skill bar animations when skills section is visible
+                    if (entry.target.id === 'profil') {
+                        setTimeout(() => {
+                            document.querySelectorAll('.skill-bar').forEach((bar, index) => {
+                                setTimeout(() => {
+                                    const width = bar.style.getPropertyValue('--skill-width');
+                                    bar.style.width = width;
+                                }, index * 200);
+                            });
+                        }, 500);
+                    }
+                }
+            });
+        }, observerOptions);
+
+        // Observe all fade-in sections
+        document.querySelectorAll('.fade-in-section').forEach(section => {
+            observer.observe(section);
+        });
+
+        // Typing animation restart on scroll
+        let typingObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const typingElement = entry.target.querySelector('.typing-text');
+                    if (typingElement) {
+                        typingElement.style.animation = 'none';
+                        setTimeout(() => {
+                            typingElement.style.animation = 'typing 4s steps(40, end), blink 1s infinite';
+                        }, 100);
+                    }
+                }
+            });
+        });
+
+        // Observe hero section for typing animation
+        const heroSection = document.querySelector('section');
+        if (heroSection) {
+            typingObserver.observe(heroSection);
+        }
+
+        // Add floating animation to cards on hover
+        document.querySelectorAll('.card-hover').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-15px) scale(1.02) rotateX(5deg)';
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0) scale(1) rotateX(0deg)';
+            });
+        });
+
+        // Parallax effect for background particles
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const particles = document.querySelectorAll('.particle');
+            
+            particles.forEach((particle, index) => {
+                const speed = (index + 1) * 0.1;
+                particle.style.transform = `translateY(${scrolled * speed}px)`;
+            });
+        });
+
+        // Dynamic gradient colors based on scroll
+        let hue = 0;
+        window.addEventListener('scroll', () => {
+            hue = (window.pageYOffset / 10) % 360;
+            document.documentElement.style.setProperty('--dynamic-hue', hue);
+        });
+
+        // Add click ripple effect to buttons
+        document.querySelectorAll('.btn-glow').forEach(button => {
+            button.addEventListener('click', function(e) {
+                const ripple = document.createElement('span');
+                const rect = this.getBoundingClientRect();
+                const size = Math.max(rect.width, rect.height);
+                const x = e.clientX - rect.left - size / 2;
+                const y = e.clientY - rect.top - size / 2;
+                
+                ripple.style.width = ripple.style.height = size + 'px';
+                ripple.style.left = x + 'px';
+                ripple.style.top = y + 'px';
+                ripple.classList.add('ripple');
+                
+                this.appendChild(ripple);
+                
+                setTimeout(() => {
+                    ripple.remove();
+                }, 600);
+            });
+        });
+
+        // Auto-refresh animations every 30 seconds for continuous effect
+        setInterval(() => {
+            document.querySelectorAll('.profile-photo').forEach(photo => {
+                photo.style.animation = 'none';
+                setTimeout(() => {
+                    photo.style.animation = 'float 6s ease-in-out infinite, pulse-glow 3s ease-in-out infinite';
+                }, 50);
+            });
+        }, 30000);
+
+        // Mouse trail effect
+        let mouseTrail = [];
+        document.addEventListener('mousemove', (e) => {
+            // Only create particles occasionally to avoid performance issues
+            if (Math.random() > 0.8) {
+                const particle = document.createElement('div');
+                particle.className = 'particle-trail';
+                particle.style.left = e.clientX + 'px';
+                particle.style.top = e.clientY + 'px';
+                document.body.appendChild(particle);
+                
+                // Remove particle after animation
+                setTimeout(() => {
+                    if (particle.parentNode) {
+                        particle.parentNode.removeChild(particle);
+                    }
+                }, 1000);
+            }
+        });
+
+        // Enhanced scroll-triggered animations
+        window.addEventListener('scroll', () => {
+            const scrollProgress = window.pageYOffset / (document.documentElement.scrollHeight - window.innerHeight);
+            
+            // Update CSS custom property for dynamic effects
+            document.documentElement.style.setProperty('--scroll-progress', scrollProgress);
+        });
+    </script>
+    </script>
+</body>
+</html>
